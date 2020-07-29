@@ -61,6 +61,7 @@ class Shipping
 
     /**
      * @ORM\OneToOne(targetEntity=Client::class, mappedBy="shipping", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $client;
 

@@ -24,16 +24,14 @@ class Product
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="integer")
+   /**
+     * @ORM\Column(type="text")
      */
     private $price;
-
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="text")
      */
     private $special_offer;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -81,24 +79,24 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(int $price): self
+    public function setPrice(string $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    public function getSpecialOffer(): ?int
+    public function getSpecialOffer(): ?string
     {
         return $this->special_offer;
     }
 
-    public function setSpecialOffer(int $special_offer): self
+    public function setSpecialOffer(string $special_offer): self
     {
         $this->special_offer = $special_offer;
 
@@ -182,6 +180,10 @@ class Product
         }
 
         return $this;
+    }
+     public  function __toString()
+    {
+        return $this-> getName();
     }
    
 }

@@ -13,6 +13,7 @@ use App\Form\ShippingType;
 use App\Manager\OrderManager;
 use App\Repository\ProductRepository;
 use Container1xM9NcI\getProductTypeService;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Compiler\CheckTypeDeclarationsPass;
 use Symfony\Component\Form\Form;
@@ -45,36 +46,48 @@ class LandingPageController extends AbstractController
             'product' => new Product(),
             'client' => new Client(),
             'shipping' => new Shipping(),
-            'order'=>new Order(),
+            'order'=> new Order(),
             ];
-        
-        
-        $formBuilder = $this->createFormBuilder($entityInstance)
+
+        $entityInstance["order"]->setCreatedAt(new \DateTime());
        
-        ->add('client',ClientType::class)
-        ->add('product',ProductType::class)
-        ->add('shipping',ShippingType::class);
-        
+        $formBuilder = $this->createFormBuilder($entityInstance,
+         [
+            'csrf_protection' => false,
+            'csrf_field_name' => '_token',
+            'csrf_token_id' => 'order_csrf'
+            ])
+            ->add('client',ClientType::class)
+            ->add('product',ProductType::class)
+            ->add('shipping',ShippingType::class)
+            ->add('order' ,OrderType::class);
 
         $form=$formBuilder->getForm();
         $form->handleRequest($request);
 
-        $valueProduct = $request->request->get('order[cart][cart_products][0]');
-        // dd($valueProduct);
-       
-
-        
         // dd($form);
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($request->request);
+
+            $productId = $request->get('order')["cart"]["cart_products"][0];
+            
             $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($client>getParticipant());
+            
             $entityManager->persist($entityInstance['client']);
             $entityManager->persist($entityInstance['shipping']);
+
+            $entityInstance["client"]->setShipping($entityInstance['shipping']);
+            $entityInstance["shipping"]->setClient($entityInstance['client']);
+           
+            
+            $product = $entityManager->find(Product::class, $productId);
+            $entityInstance["order"]->setProduct($product);
+
+            $entityInstance["order"]->setClient($entityInstance['client']);
             $entityManager->persist($entityInstance['order']);
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('landing_page');
+            return $this->redirectToRoute('confirmation');
         
         }
 

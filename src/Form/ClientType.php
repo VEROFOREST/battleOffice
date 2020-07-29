@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Client;
 use App\Entity\Country;
 use App\Entity\Product;
+use App\Entity\Shipping;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,7 +33,11 @@ class ClientType extends AbstractType
                     'choice_label' => 'name',
                     'multiple'  => false,
                     ))
-            // ->add('shipping')
+            ->add('shipping',EntityType::class, array(
+                    'class' => Shipping::class,
+                    'choice_label' => 'id',
+                    'multiple'  => false,
+                    ))
             // ->add('product',EntityType::class, array(
             //         'class' => Product::class,
             //         'choice_label' => 'id',

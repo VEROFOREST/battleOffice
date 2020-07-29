@@ -13,7 +13,7 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            // ->add('price')
+            ->add('price')
             // ->add('special_offer')
             // ->add('img_path')
             // ->add('quantity')
@@ -28,4 +28,5 @@ class ProductType extends AbstractType
             'data_class' => Product::class,
         ]);
     }
+    
 }
