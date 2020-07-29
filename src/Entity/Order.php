@@ -19,7 +19,7 @@ class Order
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $status;
 
@@ -29,7 +29,7 @@ class Order
     private $id_api;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=true)
      */
     private $created_at;
 
@@ -37,6 +37,18 @@ class Order
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $is_paid;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $product;
 
     public function getId(): ?int
     {
@@ -87,6 +99,30 @@ class Order
     public function setIsPaid(?bool $is_paid): self
     {
         $this->is_paid = $is_paid;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }
