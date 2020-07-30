@@ -38,11 +38,7 @@ class ClientType extends AbstractType
                     'choice_label' => 'id',
                     'multiple'  => false,
                     ))
-            // ->add('product',EntityType::class, array(
-            //         'class' => Product::class,
-            //         'choice_label' => 'id',
-            //         'multiple'  => false,
-            //         ))
+          
         ;
     }
 

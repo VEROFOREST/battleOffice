@@ -20,16 +20,7 @@ class OrderType extends AbstractType
             ->add('id_api')
             ->add('is_paid');
         
-            // ->add('client',EntityType::class, array(
-            //         'class' => Client::class,
-            //         'choice_label' => 'id',
-            //         'multiple'  => false,))
-
-            // ->add('product',EntityType::class, array(
-            //         'class' => Product::class,
-            //         'choice_label' => 'id',
-            //         'multiple'  => false,));
-
+           
     }
 
     public function configureOptions(OptionsResolver $resolver)
