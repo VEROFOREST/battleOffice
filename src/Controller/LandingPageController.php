@@ -152,8 +152,7 @@ class LandingPageController extends AbstractController
             $entityManager->flush();
 
             $reponseapi= $this->apiOrder($entityInstance["order"]);
-        //    $reponse = $responseapi->toArray();
-            // dd($reponseapi);
+       
             $idapi=$reponseapi['order_id'];
             
             $entityInstance["order"]->setIdApi($idapi);
@@ -184,13 +183,7 @@ class LandingPageController extends AbstractController
     
     }
 
-    public function updateorder($content){
-        dd($content);
     
-
-
-
-    }
 
 
 
