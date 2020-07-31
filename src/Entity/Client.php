@@ -242,19 +242,9 @@ class Client
         return $this;
     }
 
-    //  public function getProduct(): ?Product
-    // {
-    //     return $this->product;
-    // }
-
-    // public function setProduct(?Product $product): self
-    // {
-    //     $this->product = $product;
-
-    //     return $this;
-    // }
+    
       public  function __toString()
     {
-        return $this-> getLastName();
+        return $this-> getFirstName();
     }
 }
